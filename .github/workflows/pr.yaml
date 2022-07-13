@@ -39,5 +39,5 @@ jobs:
         destination-repository-name: 'website'
         user-email: kubean-robot@ykubean.io
         commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-        target-directory: public
+        target-directory: docs
         target-branch: gh-pages
