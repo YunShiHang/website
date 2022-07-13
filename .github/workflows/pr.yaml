@@ -21,23 +21,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        persist-credentials: true
 
     - name: docs
       run: |
         cd ./docs/honkit && npm install npm -g && npm install
         npx honkit build .  ../../public
-        git add -A
+        cd ../../
 
-    - name: Commit files
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -m "Add changes" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    - name: Pushes charts to another repository
+      id: push_directory
+      uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
+      env:
+        SSH_DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       with:
-      	ssh: "true"
-        branch: ${{ github.ref }}
+        source-directory: public
+        destination-github-username: 'yun-s-h'
+        destination-repository-name: 'website'
+        user-email: kubean-robot@ykubean.io
+        commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+        target-directory: public
+        target-branch: gh-pages
