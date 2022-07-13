@@ -26,4 +26,9 @@ jobs:
 
       - name: unit test
         run: |
-          npx --version
+          cd ./docs/honkit && npm install npm -g && npm install
+          ls
+          npx honkit build .  ../../public
+          cd ../../
+          ls
+        
