@@ -1,4 +1,4 @@
-name: pr
+name: pr-docs
 
 # on:
 #   pull_request_target:
@@ -13,7 +13,7 @@ on:
       - main
 
 jobs:
-  unit-test:
+  docs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -25,7 +25,7 @@ jobs:
         ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
         persist-credentials: true
 
-    - name: unit test
+    - name: docs
       run: |
         cd ./docs/honkit && npm install npm -g && npm install
         npx honkit build .  ../../public
@@ -41,4 +41,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
       	ssh: true
-        branch: ${{ github.ref }}
+        branch: gh-pages
