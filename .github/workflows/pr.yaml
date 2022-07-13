@@ -20,25 +20,25 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          persist-credentials: true
+    - uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        persist-credentials: true
 
-      - name: unit test
-        run: |
-          cd ./docs/honkit && npm install npm -g && npm install
-          npx honkit build .  ../../public
-          git add -A
+    - name: unit test
+      run: |
+        cd ./docs/honkit && npm install npm -g && npm install
+        npx honkit build .  ../../public
+        git add -A
 
-      - name: Commit files
-        run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git commit -m "update"
+    - name: Commit files
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+        git commit -m "update"
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-        	ssh: true
-          branch: ${{ github.ref }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+      	ssh: true
+        branch: ${{ github.ref }}
