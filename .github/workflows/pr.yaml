@@ -33,12 +33,11 @@ jobs:
 
     - name: Commit files
       run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
-        git commit -m "update"
-
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
       	ssh: true
-        branch: gh-pages
+        branch: ${{ github.ref }}
