@@ -1,0 +1,29 @@
+name: pr
+
+# on:
+#   pull_request_target:
+#     types:
+#       - opened
+#       - synchronize
+#       - reopened
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: unit test
+        run: |
+          npx --version
